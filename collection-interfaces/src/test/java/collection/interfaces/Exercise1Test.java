@@ -31,7 +31,7 @@ public class Exercise1Test extends ClassicOnlineStore {
          * Iterate {@link customerIterable} with {@link Iterable#forEach} and use the {@link Consumer}
          * to finish creating the name list.
          */
-        Consumer<Customer> consumer = customer -> nameList.add(customer.getName());
+        Consumer<Customer> consumer = customer->nameList.add(customer.getName());
         customerIterable.forEach(consumer);
 
         assertThat(nameList.toString(), is("[Joe, Steven, Patrick, Diana, Chris, Kathy, Alice, Andrew, Martin, Amy]"));
@@ -40,13 +40,13 @@ public class Exercise1Test extends ClassicOnlineStore {
     @Easy @Test
     public void whoHaveNoEInYourName() {
         Collection<String> nameCollection =
-            new ArrayList<>(Arrays.asList("Joe", "Steven", "Patrick", "Chris"));
+                new ArrayList<>(Arrays.asList("Joe", "Steven", "Patrick", "Chris"));
 
         /**
          * Create a {@link Predicate} which predicates if the input string contains "e".
          * Remove elements from {@link nameCollection} which contains "e" using {@link Collection#removeIf}.
          */
-        Predicate<String> predicate = name -> name.contains("e");
+        Predicate<String> predicate = (s)->s.contains("e");
         nameCollection.removeIf(predicate);
 
         assertThat(nameCollection.toString(), is("[Patrick, Chris]"));
@@ -55,13 +55,13 @@ public class Exercise1Test extends ClassicOnlineStore {
     @Easy @Test
     public void replaceTheElements() {
         List<String> nameList =
-            new ArrayList<>(Arrays.asList("Joe", "Steven", "Patrick", "Chris"));
+                new ArrayList<>(Arrays.asList("Joe", "Steven", "Patrick", "Chris"));
 
         /**
          * Create a {@link UnaryOperator} which returns given string wrapped with "()".
          * Replace the elements in {@link nameList} with string wrapped with "()" using {@link List#replaceAll} .
          */
-        UnaryOperator<String> unaryOperator = e -> "(" + e + ")";
+        UnaryOperator<String> unaryOperator =(s)->"("+s+")" ;
         nameList.replaceAll(unaryOperator);
 
         assertThat(nameList.toString(), is("[(Joe), (Steven), (Patrick), (Chris)]"));
@@ -70,12 +70,12 @@ public class Exercise1Test extends ClassicOnlineStore {
     @Easy @Test
     public void sortByName() {
         List<String> nameList =
-            new ArrayList<>(Arrays.asList("Joe", "Steven", "Patrick", "Chris"));
+                new ArrayList<>(Arrays.asList("Joe", "Steven", "Patrick", "Chris"));
 
         /**
          * Create a {@link Comparator} to sort the name list by their name's length in ascending order.
          */
-        Comparator<String> comparator = Comparator.comparingInt(String::length);
+        Comparator<String> comparator =Comparator.comparing(String::length);
         nameList.sort(comparator);
 
         assertThat(nameList.toString(), is("[Joe, Chris, Steven, Patrick]"));
@@ -84,7 +84,7 @@ public class Exercise1Test extends ClassicOnlineStore {
     @Easy @Test
     public void createStream() {
         Collection<String> nameList =
-            new ArrayList<>(Arrays.asList("Joe", "Steven", "Patrick", "Chris"));
+                new ArrayList<>(Arrays.asList("Joe", "Steven", "Patrick", "Chris"));
 
         /**
          * Create a serial {@link Stream} using {@link Collection#stream}
@@ -99,12 +99,12 @@ public class Exercise1Test extends ClassicOnlineStore {
     @Easy @Test
     public void createParallelStream() {
         Collection<String> nameList =
-            new ArrayList<>(Arrays.asList("Joe", "Steven", "Patrick", "Chris"));
+                new ArrayList<>(Arrays.asList("Joe", "Steven", "Patrick", "Chris"));
 
         /**
          * Create a parallel {@link Stream} using {@link Collection#parallelStream} or {@link Stream#parallel}
          */
-        Stream<String> nameParallelStream = nameList.parallelStream(); // or nameList.stream().parallel();
+        Stream<String> nameParallelStream = nameList.parallelStream();
 
         assertThat(nameParallelStream.count(), is(4L));
         assertThat(nameParallelStream.isParallel(), is(true));
